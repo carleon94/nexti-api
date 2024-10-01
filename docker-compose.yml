@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  api:
+    image: nexti-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5244:80"
+    environment:
+      - ConnectionStrings__CadenaSQL=Data Source=CARLOS-KERLLY;Initial Catalog=DBNext;Integrated Security=true;Trusted_Connection=True;TrustServerCertificate=true;
+    depends_on:
+      - db
+
+  db:
+    image: mcr.microsoft.com/mssql/server
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "1433:1433"
